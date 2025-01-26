@@ -1,7 +1,6 @@
 if(process.env.NODE_ENV !="production"){
-    require("dotenv").config();//this is when,we are developing it will show us we never upload .env file on github accout or give this file to anybady
-};
-
+    require("dotenv").config();
+}
 
 const express = require("express");
 const app = express();
@@ -21,7 +20,6 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlast";
 const dbUrl=process.env.ATLASDB_URL;
 main().then(() => {
     console.log("connected to DB");
@@ -29,7 +27,6 @@ main().then(() => {
     console.log(err);
 });
 async function main() {
-    // await mongoose.connect(MONGO_URL);
     await mongoose.connect(dbUrl);
 };
 
@@ -65,10 +62,6 @@ const sessionOptions = {
     },
 };
 
-// app.get("/", (req, res) => {
-//     res.send("HI,I am root");
-//     // res.render("./listings/home.ejs");
-// });
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -87,36 +80,10 @@ app.use((req, res, next) => {
     next();
 });
 
-
-// app.get("/demouser", async (req, res) => {
-//     let fakeUser = new User({
-//         email: "Student@gmail.com",
-//         username: "delta-student",
-//     });
-
-//     let registerUser = await User.register(fakeUser, "helloworld");
-//     res.send(registerUser);
-// });
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-// testlisting
-
-// app.get("/testListing",async(req,res)=>{
-//     let sampleListing=new listing({
-//         title:"My New Villa",
-//         description:"By the beach",
-//         price:1200,
-//         location:"Calangute,Goa",
-//         country:"India"
-//     });
-
-//     await sampleListing.save();
-//     console.log("Sample was saved");
-//     res.send("Successful teting");
-// });
 
 
 app.all("*", (req, res, next) => {
@@ -131,7 +98,4 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
     console.log("Server is listening");
 });
-
-
-
 

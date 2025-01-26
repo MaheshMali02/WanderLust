@@ -9,7 +9,7 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
 
-// we don't need to define again and again 
+// we don't need to define route for every get,post request
 router.route("/")
     .get(wrapAsync(listingController.index)) // Index route
     .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(listingController.createListing));// Create Route

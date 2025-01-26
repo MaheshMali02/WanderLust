@@ -19,7 +19,7 @@ router.route("/login")
 }),userController.login);
 
 
-// Logout route - Log out user
+// Logout route - Logout user
 router.get("/logout", userController.logout);
 
 module.exports = router;
