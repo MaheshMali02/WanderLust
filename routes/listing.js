@@ -8,24 +8,32 @@ const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 
-
-// we don't need to define route for every get,post request
+// Index Route with category 
 router.route("/")
-    .get(wrapAsync(listingController.index)) // Index route
-    .post(isLoggedIn, upload.single("listing[image]"), validateListing, wrapAsync(listingController.createListing));// Create Route
-
-
+    .get(wrapAsync(listingController.index))
+    .post(
+        isLoggedIn,
+        upload.single("listing[image]"),
+        validateListing,
+        wrapAsync(listingController.createListing)
+    ); // Create Route
 
 // New Route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 router.route("/:id")
-    .get(wrapAsync(listingController.showListing))// Show route
-    .put(isLoggedIn, isOwner, upload.single("listing[image]"), validateListing, wrapAsync(listingController.updateListing))// Update Route
-    .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));// Delete Route
-
+    .get(wrapAsync(listingController.showListing)) // Show route
+    .put(
+        isLoggedIn,
+        isOwner,
+        upload.single("listing[image]"),
+        validateListing,
+        wrapAsync(listingController.updateListing)
+    ) // Update Route
+    .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing)); // Delete Route
 
 // Edit Route
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.renderEditForm));
 
 module.exports = router;
+

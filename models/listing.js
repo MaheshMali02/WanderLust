@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const Review = require("./review.js");
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const review = require('./review');
 
 const listingSchema = new Schema({
     title: {
@@ -9,41 +9,46 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        url: String,
         filename: String,
+        url: String,
     },
+    category: {
+        type: String,
+        enum: ['Trending', 'Rooms', 'Iconic Center', 'Iconic Cities', 'Mountains', 'Mountain Views', 'Castles', 'Amazing Pools', 'Amazing Nature', 'Camping', 'Farms', 'Form', 'Arctic', 'Domes', 'Boats', 'Creative Spaces', 'Golfing', 'Beach'
+        ],
+        required: true,
+    },
+
     price: Number,
     location: String,
     country: String,
-    reviews: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Review",
-        },
-    ],
+    reviews: [{
+        type: Schema.Types.ObjectId,
+        ref: 'review',
+    },],
     owner: {
         type: Schema.Types.ObjectId,
-        ref: "User",  // Referencing the User model
+        ref: 'user',
     },
     geometry: {
         type: {
-            type: String, // Don't do `{ location: { type: String } }`
-            enum: ['Point'], // 'location.type' must be 'Point'
+            type: String,
+            enum: ['Point'],
             required: true
         },
         coordinates: {
             type: [Number],
-            required: true
-        },
+            required: true,
+        }
     }
+
 });
 
-// post mongoose middleware (it is used when our entiry listing means one hotel card is deleted it should delete whole reviews as well as in the database)
-listingSchema.post("findOneAndDelete", async (listing) => {
+listingSchema.post('findOneAndDelete', async (listing) => {
     if (listing) {
-        await Review.deleteMany({ _id: { $in: listing.reviews } });
+        await review.deleteMany({ _id: { $in: listing.reviews } });
     }
 });
 
-const Listing = mongoose.model("Listing", listingSchema);
-module.exports = Listing;
+const listing = mongoose.model('listing', listingSchema);
+module.exports = listing;

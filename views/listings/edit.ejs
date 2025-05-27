@@ -22,7 +22,7 @@
           <div class="invalid-feedback">Please enter a short description</div>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3">  
           <P>Original Image Preview</P>
           <img src="<%= originalImageUrl %>" style="height:10rem"/>
         </div>
@@ -31,7 +31,29 @@
           <label for="image" class="form-label"> <b>Upload New Image </b> </label>
           <input name="listing[image]" type="file" class="form-control" />
         </div>
-
+        <div class="mb-3">
+                    <label for="formFile" class="form-label">Category</label>
+                      <select class="form-select" aria-label="Default select example" name="listing[category]">
+                            <option value="Trending" selected>Trending</option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Iconic Center">Iconic Center</option>
+                            <option value="Iconic Cities">Iconic Cities</option>
+                            <option value="Mountains">Mountains</option>
+                            <option value="Mountain Views">Mountain Views</option>
+                            <option value="Castles">Castles</option>
+                            <option value="Amazing Pools">Amazing Pools</option>
+                            <option value="Amazing Nature">Amazing Nature</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Form">Form</option>
+                            <option value="Arctic">Arctic</option>
+                            <option value="Domes">Domes</option>
+                            <option value="Boats">Boats</option>
+                            <option value="Creative Spaces">Creative Spaces</option>
+                            <option value="Golfing">Golfing</option>
+                            <option value="Beach">Beach</option>
+                        </select>
+                  </div>
         <div class="row">
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label"> <b>Price</b> </label>
@@ -55,7 +77,7 @@
           <div class="invalid-feedback">Location should be valid</div>
         </div>
 
-        <button class="btn btn-success editbtn mt-3">Edit</button>
+        <button class="btn btn-outline-danger btn-sm px-3 py-1">Edit</button>
         <br><br>
       </form>
 

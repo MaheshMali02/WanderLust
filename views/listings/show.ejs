@@ -1,64 +1,76 @@
- <%- layout('layouts/boilerplate') %>
+<%- layout('layouts/boilerplate') %>
+
     <script>
-        const mapToken="<%=process.env.MAP_TOKEN%>";
-        const listing=<%-JSON.stringify(listing)%>;
+        const mapToken = "<%= process.env.MAP_TOKEN %>";
+        const listing = <% - JSON.stringify(listing) %>;
     </script>
-    <div class="row mt-3">
-        <div class="col-8 offset-3">
-            <h3>
+
+    <div class="container d-flex flex-column align-items-center my-4">
+
+        <div class="w-100 mb-3" style="max-width: 800px;">
+            <h3 class="text-start">
                 <%= listing.title %>
             </h3>
         </div>
 
-        <div class="card col-6 offset-3 show-card listing-card">
-            <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
-            <div class="card-body">
-                <p class="card-text"> Owned by
-                    <i>
-                        <%= listing.owner.username%>
-                    </i>
-                </p>
-                <p class="card-text">
-                    <%= listing.description %>
-                </p>
-                <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %>
-                </p>
-                <p class="card-text">
-                    <%= listing.location %>
-                </p>
-                <p class="card-text">
-                    <%= listing.country %>
-                </p>
+        <!-- Listing Card -->
+        <div class="d-flex justify-content-center my-4">
+            <div class="card col-lg-12 col-md-8 col-sm-12 p-0 mb-4"
+                style="max-width: 800px; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); border-radius: 1rem; overflow: hidden;">
+
+                <div class="p-3">
+                    <img src="<%= listing.image.url %>" alt="listing image"
+                        style="object-fit: cover; height: 300px; width: 100%; display: block; border-radius: 0.75rem;" />
+                </div>
+
+                <div class="card-body text-start px-4 py-3">
+                    <p class="card-text mb-2" style="font-size: 1.1rem;">
+                        Owned by <i>
+                            <%= listing.owner.username %>
+                        </i>
+                    </p>
+                    <p class="card-text mb-3" style="font-size: 1rem; color: #555;">
+                        <%= listing.description %>
+                    </p>
+                    <p class="card-text mb-2 fw-semibold" style="font-size: 1.25rem; color: #2a9d8f;">
+                        &#8377; <%= listing.price.toLocaleString("en-IN") %>
+                    </p>
+                    <p class="card-text mb-1" style="font-weight: 500; color: #264653;">
+                        <%= listing.location %>
+                    </p>
+                    <p class="card-text" style="font-weight: 500; color: #264653;">
+                        <%= listing.country %>
+                    </p>
+                </div>
             </div>
         </div>
-        <br>
-    
+
+
         <% if (currUser && currUser._id && currUser._id.equals(listing.owner._id)) { %>
-            <div class="btns">
-                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
+            <div class="d-flex justify-content-start mb-3 gap-2" style="max-width: 800px; width: 100%;">
+                <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
                 <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                    <button class="btn btn-dark offset-5">Delete</button>
+                    <button class="btn btn-outline-danger btn-sm px-3 py-1">Delete</button>
                 </form>
             </div>
             <% } %>
 
-            <div class="btns mt-3">
-                <a href="/listings" class="btn btn-dark col-1 offset-3 edit-btn">Back</a>
-            </div>
+                <div class="mb-4" style="max-width: 800px; width: 100%;">
+                    <a href="/listings" class="btn btn-outline-danger btn-sm px-3 py-1">Back</a>
+                </div>
 
-
-                <div class="col-8 offset-3 mb-3">
-
-                    <% if (currUser) { %>
+                <!-- Review Form -->
+                <% if (currUser) { %>
+                    <div class="col-lg-8 col-md-10 col-sm-12 mb-4" style="max-width: 800px; width: 100%;">
                         <hr>
-                        <h4>Leave a Review</h4>
+                        <h4 class="text-start">Leave a Review</h4>
                         <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate
-                            class="needs-validation">
-                            <div class="mb-3 mt-3">
+                            class="needs-validation mt-3 text-start">
+                            <div class="mb-3">
                                 <label for="rating" class="form-label">Rating</label>
                                 <fieldset class="starability-slot">
                                     <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]"
-                                        value="1" checked aria-label="No rating." />
+                                        value="1" checked />
                                     <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                                     <label for="first-rate1" title="Terrible">1 star</label>
                                     <input type="radio" id="first-rate2" name="review[rating]" value="2" />
@@ -71,19 +83,19 @@
                                     <label for="first-rate5" title="Amazing">5 stars</label>
                                 </fieldset>
                             </div>
-                            <div class="mb-3 bt-3">
-                                <label for="comment">Comment</label>
-                                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
+                            <div class="mb-3">
+                                <label for="comment" class="form-label">Comment</label>
+                                <textarea name="review[comment]" id="comment" rows="4" class="form-control"
                                     required></textarea>
-                                <div class="invalid-feedback">
-                                    Please add some comments for review
-                                </div>
+                                <div class="invalid-feedback">Please add some comments for review</div>
                             </div>
-                            <button class="btn btn-outline-dark">Submit</button>
+                            <button class="btn btn-outline-danger btn-sm px-3 py-1">Submit</button>
                         </form>
                         <hr>
-                        <% } %>
+                    </div>
+                    <% } %>
 
+<<<<<<< HEAD
                       <!-- updated -->
                               <div class="row">
                                 <p><b>All Reviews</b></p>
@@ -104,10 +116,38 @@
                                                 <form class="mb-3" method="POST"
                                                     action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                                                     <button class="btn btn-sm btn-dark">Delete</button>
+=======
+                        <!-- Reviews Section -->
+                        <% if (listing.reviews.length> 0) { %>
+                            <div class="w-100 text-start mb-3" style="max-width: 800px;">
+                                <h4>All Reviews</h4>
+                            </div>
+                            <div class="row justify-content-start w-100" style="max-width: 800px;">
+                                <% for (review of listing.reviews) { %>
+                                    <div class="col-lg-5 col-md-6 col-sm-12 mb-4">
+                                        <div class="card h-100 shadow-sm rounded-4"
+                                            style="background-color: #f8f9fa; border: none;">
+                                            <div class="card-body text-start p-4">
+                                                <h5 class="card-title mb-3" style="color: #343a40; font-weight: 600;">
+                                                    <i class="bi bi-person-circle me-2"></i>
+                                                    <%= review.author.username %>
+                                                </h5>
+                                                <p class="starability-result card-text mb-3"
+                                                    data-rating="<%= review.rating %>"></p>
+                                                <p class="card-text mb-4" style="font-size: 1rem; color: #495057;">
+                                                    <%= review.comment %>
+                                                </p>
+                                                <form method="POST"
+                                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                    class="text-end">
+                                                    <button
+                                                        class="btn btn-outline-danger btn-sm px-3 py-1">Delete</button>
+>>>>>>> 83e2ade (Initial commit)
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                 <% } %>
                             </div>
                 </div>
@@ -115,7 +155,18 @@
                     <h3>Where you'll be</h3>
                     <div id="map"></div>
                 </div>
+=======
+                                    <% } %>
+                            </div>
+                            <% } %>
+
+                                <!-- Map Section -->
+                                <div class="col-lg-8 col-md-10 col-sm-12 mt-4" style="max-width: 800px;">
+                                    <h4 class="text-start">Where you'll be</h4>
+                                    <div id="map" style="height: 400px;" class="w-100"></div>
+                                </div>
+
+>>>>>>> 83e2ade (Initial commit)
     </div>
 
     <script src="/js/map.js"></script>
-
