@@ -95,78 +95,52 @@
                     </div>
                     <% } %>
 
-<<<<<<< HEAD
-                      <!-- updated -->
-                              <div class="row">
-                                <p><b>All Reviews</b></p>
-                                <% for(review of listing.reviews){ %>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-                                        <div class="card d-flex">
-                                            <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <%= review.author.username %>
-                                                </h5>
-                                                <p class="starability-result card-text"
-                                                    data-rating="<%= review.rating %>">
-                                                </p>
-                                                <p class="card-text">
-                                                    <%= review.comment %>
-                                                </p>
-
-                                                <form class="mb-3" method="POST"
-                                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                    <button class="btn btn-sm btn-dark">Delete</button>
-=======
-                        <!-- Reviews Section -->
-                        <% if (listing.reviews.length> 0) { %>
-                            <div class="w-100 text-start mb-3" style="max-width: 800px;">
-                                <h4>All Reviews</h4>
-                            </div>
-                            <div class="row justify-content-start w-100" style="max-width: 800px;">
-                                <% for (review of listing.reviews) { %>
-                                    <div class="col-lg-5 col-md-6 col-sm-12 mb-4">
-                                        <div class="card h-100 shadow-sm rounded-4"
-                                            style="background-color: #f8f9fa; border: none;">
-                                            <div class="card-body text-start p-4">
-                                                <h5 class="card-title mb-3" style="color: #343a40; font-weight: 600;">
-                                                    <i class="bi bi-person-circle me-2"></i>
-                                                    <%= review.author.username %>
-                                                </h5>
-                                                <p class="starability-result card-text mb-3"
-                                                    data-rating="<%= review.rating %>"></p>
-                                                <p class="card-text mb-4" style="font-size: 1rem; color: #495057;">
-                                                    <%= review.comment %>
-                                                </p>
-                                                <form method="POST"
-                                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
-                                                    class="text-end">
-                                                    <button
-                                                        class="btn btn-outline-danger btn-sm px-3 py-1">Delete</button>
->>>>>>> 83e2ade (Initial commit)
-                                                </form>
+                        <!-- updated -->
+                        <div class="container">
+                            <% if (listing.reviews.length> 0) { %>
+                                <div class="mb-4">
+                                    <h4>All Reviews</h4>
+                                </div>
+                                <div class="row">
+                                    <% for (const review of listing.reviews) { %>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                                            <div class="card h-100 shadow-sm rounded-4"
+                                                style="background-color: #f8f9fa; border: none;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3"
+                                                        style="color: #343a40; font-weight: 600;">
+                                                        <i class="bi bi-person-circle me-2"></i>
+                                                        <%= review.author.username %>
+                                                    </h5>
+                                                    <p class="starability-result card-text mb-3"
+                                                        data-rating="<%= review.rating %>"></p>
+                                                    <p class="card-text mb-4" style="font-size: 1rem; color: #495057;">
+                                                        <%= review.comment %>
+                                                    </p>
+                                                    <form method="POST"
+                                                        action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                                        class="text-end">
+                                                        <button
+                                                            class="btn btn-outline-danger btn-sm px-3 py-1">Delete</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-<<<<<<< HEAD
-                                <% } %>
-                            </div>
-                </div>
-                <div class="col-8 offset-3 mb-3">
-                    <h3>Where you'll be</h3>
-                    <div id="map"></div>
-                </div>
-=======
+                                        <% } %>
+                                </div>
+                                <% } else { %>
+                                    <p>No reviews yet.</p>
                                     <% } %>
-                            </div>
-                            <% } %>
+                        </div>
 
-                                <!-- Map Section -->
-                                <!-- <div class="col-lg-8 col-md-10 col-sm-12 mt-4" style="max-width: 800px;">
+
+                        <!-- Map Section -->
+                        <!-- <div class="col-lg-8 col-md-10 col-sm-12 mt-4" style="max-width: 800px;">
                                     <h4 class="text-start">Where you'll be</h4>
                                     <div id="map" style="height: 400px;" class="w-100"></div>
                                 </div> -->
 
->>>>>>> 83e2ade (Initial commit)
     </div>
+
 
     <script src="/js/map.js"></script>
